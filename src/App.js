@@ -1,25 +1,57 @@
-import logo from './logo.svg';
+import { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      characters: [],
+      searchString: '',
+    };
+  }
+
+  componentDidMount() {
+    fetch('https://swapi.dev/api/people/?format=json')
+      .then((response) => response.json())
+      .then((data) => {
+        const { results } = data;
+        this.setState(
+          () => {
+            return { characters: results, filteredChars: results };
+          },
+          () => {
+            console.log(results);
+          }
+        );
+      });
+  }
+  onSearchChange = (event) => {
+    this.setState(() => {
+      return { searchString: event.target.value };
+    });
+  };
+
+  render() {
+    const { onSearchChange } = this;
+    const { characters, searchString } = this.state;
+    const filteredChars = characters.filter((char) => {
+      return char.name.toLowerCase().includes(searchString.toLowerCase());
+    });
+
+    return (
+      <div className='App'>
+        <input
+          className='search-box'
+          type='search'
+          placeholder='Search characters'
+          onChange={onSearchChange}
+        />
+        {filteredChars.map((char) => {
+          return <h1 key={char.name}>{char.name}</h1>;
+        })}
+      </div>
+    );
+  }
 }
 
 export default App;
