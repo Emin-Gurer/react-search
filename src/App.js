@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import './App.css';
+import CardList from './components/card-list/card-list.component';
+import SearchBox from './components/search-box/search-box.component';
 
 class App extends Component {
   constructor() {
@@ -15,14 +17,9 @@ class App extends Component {
       .then((response) => response.json())
       .then((data) => {
         const { results } = data;
-        this.setState(
-          () => {
-            return { characters: results, filteredChars: results };
-          },
-          () => {
-            console.log(results);
-          }
-        );
+        this.setState(() => {
+          return { characters: results };
+        });
       });
   }
   onSearchChange = (event) => {
@@ -40,15 +37,11 @@ class App extends Component {
 
     return (
       <div className='App'>
-        <input
-          className='search-box'
-          type='search'
+        <SearchBox
+          onChangeHandler={onSearchChange}
           placeholder='Search characters'
-          onChange={onSearchChange}
         />
-        {filteredChars.map((char) => {
-          return <h1 key={char.name}>{char.name}</h1>;
-        })}
+        <CardList characters={filteredChars} />
       </div>
     );
   }
