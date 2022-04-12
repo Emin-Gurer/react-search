@@ -17,3 +17,5 @@ You may also see any lint errors in the console.
 ## This is basic react app demonstrates using states, props and functions as props
 
 ## Don't forget to use `npm install` command to install dependencies
+
+![rolodex](https://user-images.githubusercontent.com/78971120/162939118-bdbe0a00-f0e8-479e-b13e-f95b9dd2905a.gif)
