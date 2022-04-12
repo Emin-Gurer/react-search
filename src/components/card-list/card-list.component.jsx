@@ -1,12 +1,13 @@
 import { Component } from 'react';
-
+import Card from '../card/card.component';
+import './card-list.styles.css';
 class CardList extends Component {
   render() {
     const { characters } = this.props;
     return (
-      <div>
+      <div className='card-list'>
         {characters.map((char) => {
-          return <h1 key={char.name}>{char.name}</h1>;
+          return <Card char={char} key={char.id} />;
         })}
       </div>
     );

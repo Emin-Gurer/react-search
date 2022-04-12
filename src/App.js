@@ -13,12 +13,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('https://swapi.dev/api/people/?format=json')
+    fetch('https://jsonplaceholder.typicode.com/users')
       .then((response) => response.json())
       .then((data) => {
-        const { results } = data;
         this.setState(() => {
-          return { characters: results };
+          return { characters: data };
         });
       });
   }
@@ -37,7 +36,9 @@ class App extends Component {
 
     return (
       <div className='App'>
+        <h1 className='app-title'>Monster Rolodex</h1>
         <SearchBox
+          className='characters-search-box'
           onChangeHandler={onSearchChange}
           placeholder='Search characters'
         />
